@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD de Produtos</title>
+  <style>
+    /* Reseta alguns estilos padrões */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #products {
+      margin-top: 30px;
+    }
+
+    #products li {
+      padding: 12px;
+      margin-bottom: 15px;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #products button {
+      background-color: #FF4C4C;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    #products button:hover {
+      background-color: #e53935;
+    }
+
+    /* Update Form - Hidden initially */
+    #update-product-form {
+      display: none;
+    }
+
+    /* Botão de Atualizar em Verde */
+    #update-product-form button[type="submit"] {
+      background-color: #28a745; /* Cor verde */
+    }
+
+    /* Efeito Hover e Active para o botão de Atualizar */
+    #update-product-form button[type="submit"]:hover {
+      background-color: #218838; /* Tom de verde mais escuro */
+    }
+
+    #update-product-form button[type="submit"]:active {
+      background-color: #1e7e34; /* Verde mais escuro ao clicar */
+    }
+
+    #update-product-form button[type="button"] {
+      background-color: #dc3545; /* Cor do botão cancelar (vermelho) */
+    }
+
+    #update-product-form button[type="button"]:hover {
+      background-color: #c82333;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+      input, button {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>CRUD de Produtos</h1>
+
+    <!-- Add Product Form -->
+    <form id="add-product-form">
+      <h2>Adicionar Produto</h2>
+      <label for="name">Nome:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="price">Preço:</label>
+      <input type="number" id="price" name="price" required step="0.01">
+
+      <label for="description">Descrição:</label>
+      <input type="text" id="description" name="description" required>
+
+      <button type="submit">Adicionar</button>
+    </form>
+
+    <!-- Update Product Form (Hidden initially) -->
+    <form id="update-product-form">
+      <h2>Atualizar Produto</h2>
+      <input type="hidden" id="update-id">
+      
+      <label for="update-name">Nome:</label>
+      <input type="text" id="update-name" name="name" required>
+      
+      <label for="update-price">Preço:</label>
+      <input type="number" id="update-price" name="price" required step="0.01">
+      
+      <label for="update-description">Descrição:</label>
+      <input type="text" id="update-description" name="description" required>
+      
+      <button type="submit">Atualizar</button>
+      <button type="button" id="cancel-update">Cancelar</button>
+    </form>
+
+    <ul id="products">
+      <!-- Lista de produtos será populada aqui -->
+    </ul>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Chama fetchProducts() quando a página carrega
+    window.addEventListener('load', fetchProducts);
+  </script>
+</body>
+</html>
